@@ -26,6 +26,12 @@
       font-size: 1.5rem;
       color: #0f172a;
     }
+    nav a {
+      margin-left: 1rem;
+      color: #3b82f6;
+      text-decoration: none;
+      font-weight: 500;
+    }
     .metrics {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -66,13 +72,14 @@
       max-width: 300px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
-    .calculator input {
+    .calculator input, .calculator select {
       width: 100%;
       padding: 0.5rem;
       margin-bottom: 1rem;
       font-size: 1rem;
     }
     .calculator button {
+      width: 100%;
       padding: 0.5rem 1rem;
       font-size: 1rem;
       background-color: #3b82f6;
@@ -80,6 +87,11 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+    }
+    #calcResultado {
+      font-weight: bold;
+      color: #0f172a;
+      margin-top: 1rem;
     }
   </style>
 </head>
@@ -97,19 +109,19 @@
 
   <div class="metrics">
     <div class="card">
-      <h3>Vendas Totais</h3>
+      <h3>💰 Vendas Totais</h3>
       <p>12.500 Kz</p>
     </div>
     <div class="card">
-      <h3>Lucro Líquido</h3>
+      <h3>📈 Lucro Líquido</h3>
       <p>4.800 Kz</p>
     </div>
     <div class="card">
-      <h3>Tarefas Pendentes</h3>
+      <h3>📋 Tarefas Pendentes</h3>
       <p>5</p>
     </div>
     <div class="card">
-      <h3>Itens em Stock</h3>
+      <h3>📦 Itens em Stock</h3>
       <p>89</p>
     </div>
   </div>
@@ -118,17 +130,23 @@
     <canvas id="salesChart" width="400" height="200"></canvas>
     <canvas id="profitChart" width="400" height="200"></canvas>
     <div class="calculator">
-      <h3>Calculadora</h3>
-      <input type="number" id="calc1" placeholder="Número 1">
-      <input type="number" id="calc2" placeholder="Número 2">
-      <button onclick="calcular()">Somar</button>
-      <p id="calcResultado"></p>
+      <h3>🧮 Calculadora de Vendas do Dia</h3>
+      <input type="number" id="calc1" placeholder="Total de Vendas">
+      <input type="number" id="calc2" placeholder="Custos do Dia">
+      <select id="operacao">
+        <option value="soma">Somar</option>
+        <option value="subtrair">Subtrair</option>
+        <option value="multiplicar">Multiplicar</option>
+        <option value="dividir">Dividir</option>
+      </select>
+      <button onclick="calcular()">Calcular</button>
+      <p id="calcResultado">Resultado aparecerá aqui</p>
     </div>
   </div>
 
   <script>
     const salesCtx = document.getElementById('salesChart').getContext('2d');
-    const salesChart = new Chart(salesCtx, {
+    new Chart(salesCtx, {
       type: 'line',
       data: {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
@@ -145,7 +163,7 @@
     });
 
     const profitCtx = document.getElementById('profitChart').getContext('2d');
-    const profitChart = new Chart(profitCtx, {
+    new Chart(profitCtx, {
       type: 'bar',
       data: {
         labels: ['Design', 'Fotografia', 'Web'],
@@ -164,7 +182,14 @@
     function calcular() {
       const a = parseFloat(document.getElementById('calc1').value);
       const b = parseFloat(document.getElementById('calc2').value);
-      const resultado = a + b;
+      const operacao = document.getElementById('operacao').value;
+      let resultado = 0;
+
+      if (operacao === 'soma') resultado = a + b;
+      if (operacao === 'subtrair') resultado = a - b;
+      if (operacao === 'multiplicar') resultado = a * b;
+      if (operacao === 'dividir') resultado = b !== 0 ? a / b : 'Erro: Divisão por zero';
+
       document.getElementById('calcResultado').innerText = `Resultado: ${resultado} Kz`;
     }
   </script>
