@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-key="settings_title">Configurações - TÁ NA HORA PRO</title>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+    <div id="app-container" class="min-h-screen flex flex-col">
+        <header id="main-header" class="sticky top-0 z-50"></header>
+        
+        <main id="page-content" class="flex-grow container mx-auto p-6">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-3xl font-bold mb-6" data-i18n-key="profile_settings">Configurações de Perfil</h1>
+                
+                <div id="notification" class="hidden p-4 mb-4 rounded-md"></div>
+
+                <form id="settings-form" class="bg-white rounded-lg shadow-lg p-8 space-y-8">
+                    
+                    <!-- General Profile Section -->
+                    <div>
+                        <h2 class="text-xl font-semibold mb-4 border-b pb-2" data-i18n-key="profile_settings">Informação Geral</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="full_name" class="block text-sm font-medium text-gray-700 mb-1" data-i18n-key="form_full_name">Nome Completo</label>
+                                <input type="text" id="full_name" name="full_name" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label for="avatar_url" class="block text-sm font-medium text-gray-700 mb-1" data-i18n-key="form_avatar_url">URL do Avatar</label>
+                                <input type="url" id="avatar_url" name="avatar_url" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Freelancer Specific Section -->
+                    <div id="freelancer-settings-section" class="hidden">
+                        <h2 class="text-xl font-semibold mb-4 border-b pb-2" data-i18n-key="freelancer_settings">Perfil de Freelancer</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                           <div>
+                                <label for="website" class="block text-sm font-medium text-gray-700 mb-1" data-i18n-key="form_website">Website</label>
+                                <input type="url" id="website" name="website" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                             <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1" data-i18n-key="form_phone">Telefone de Contato</label>
+                                <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label for="linkedin_url" class="block text-sm font-medium text-gray-700 mb-1" data-i18n-key="form_linkedin">Perfil LinkedIn</label>
+                                <input type="url" id="linkedin_url" name="linkedin_url" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                             <div>
+                                <label for="github_url" class="block text-sm font-medium text-gray-700 mb-1" data-i18n-key="form_github">Perfil GitHub</label>
+                                <input type="url" id="github_url" name="github_url" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Company Specific Section -->
+                    <div id="company-settings-section" class="hidden">
+                        <h2 class="text-xl font-semibold mb-4 border-b pb-2" data-i18n-key="company_settings">Perfil de Empresa</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                           <div>
+                                <label for="company_name" class="block text-sm font-medium text-gray-700 mb-1" data-i18n-key="form_company_name">Nome da Empresa</label>
+                                <input type="text" id="company_name" name="company_name" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                             <div>
+                                <label for="sector" class="block text-sm font-medium text-gray-700 mb-1" data-i18n-key="form_sector">Ramo de Atividade</label>
+                                <input type="text" id="sector" name="sector" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-right">
+                        <button type="submit" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-300 disabled:bg-blue-300" data-i18n-key="save_changes">
+                            Salvar Alterações
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+        
+        <footer id="main-footer"></footer>
+    </div>
+    
+    <script type="module" src="js/settings.js"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

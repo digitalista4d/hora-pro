@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-key="home_title">Home - TÁ NA HORA PRO</title>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <div id="app-container" class="min-h-screen flex flex-col">
+        <header id="main-header" class="sticky top-0 z-50"></header>
+        
+        <main id="page-content" class="flex-grow">
+            <!-- Hero Section -->
+            <section class="bg-blue-600 text-white py-20 md:py-32">
+                <div class="container mx-auto px-6 text-center">
+                    <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4" data-i18n-key="hero_title">Conectando Talentos, Impulsionando Negócios.</h1>
+                    <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto" data-i18n-key="hero_subtitle">A plataforma definitiva para freelancers e empresas em Angola. Encontre projetos, contrate profissionais e gerencie seu trabalho com eficiência.</p>
+                    <a href="register.html" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-gray-200 transition duration-300" data-i18n-key="hero_cta">Comece Agora</a>
+                </div>
+            </section>
+
+            <!-- Featured Freelancers -->
+            <section class="py-16 bg-gray-100">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-3xl font-bold text-center mb-10" data-i18n-key="featured_freelancers_title">Freelancers em Destaque</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <!-- Freelancer Card Example -->
+                        <div class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-xl transition-shadow duration-300">
+                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Freelancer" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-blue-200">
+                            <h3 class="text-xl font-bold">Ana Silva</h3>
+                            <p class="text-gray-500 mb-2">Designer Gráfica</p>
+                            <span class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                <span class="w-2 h-2 mr-1 bg-green-500 rounded-full"></span>
+                                <span data-i18n-key="status_on">ON</span>
+                            </span>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-xl transition-shadow duration-300">
+                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026705d" alt="Freelancer" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-blue-200">
+                            <h3 class="text-xl font-bold">João Costa</h3>
+                            <p class="text-gray-500 mb-2">Fotógrafo</p>
+                             <span class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                <span class="w-2 h-2 mr-1 bg-green-500 rounded-full"></span>
+                                <span data-i18n-key="status_on">ON</span>
+                            </span>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-xl transition-shadow duration-300">
+                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026706d" alt="Freelancer" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-blue-200">
+                            <h3 class="text-xl font-bold">Maria Santos</h3>
+                            <p class="text-gray-500 mb-2">Desenvolvedora Web</p>
+                             <span class="inline-flex items-center bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                <span class="w-2 h-2 mr-1 bg-gray-500 rounded-full"></span>
+                                <span data-i18n-key="status_off">OFF</span>
+                            </span>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-xl transition-shadow duration-300">
+                            <img src="https://i.pravatar.cc/150?u=a042581f4e29026707d" alt="Freelancer" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-blue-200">
+                            <h3 class="text-xl font-bold">Carlos Pereira</h3>
+                            <p class="text-gray-500 mb-2">Redator</p>
+                             <span class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                                <span class="w-2 h-2 mr-1 bg-green-500 rounded-full"></span>
+                                <span data-i18n-key="status_on">ON</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Featured Companies (Carousel) -->
+            <section class="py-16">
+                 <div class="container mx-auto px-6">
+                    <h2 class="text-3xl font-bold text-center mb-10" data-i18n-key="featured_companies_title">Empresas Ultra Pro</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
+                        <img src="https://tailwindui.com/img/logos/158x48/transistor-logo-gray-900.svg" alt="Transistor" class="col-span-1 max-h-12 w-full object-contain">
+                        <img src="https://tailwindui.com/img/logos/158x48/reform-logo-gray-900.svg" alt="Reform" class="col-span-1 max-h-12 w-full object-contain">
+                        <img src="https://tailwindui.com/img/logos/158x48/tuple-logo-gray-900.svg" alt="Tuple" class="col-span-1 max-h-12 w-full object-contain">
+                        <img src="https://tailwindui.com/img/logos/158x48/savvycal-logo-gray-900.svg" alt="SavvyCal" class="col-span-1 max-h-12 w-full object-contain">
+                        <img src="https://tailwindui.com/img/logos/158x48/statamic-logo-gray-900.svg" alt="Statamic" class="col-span-1 max-h-12 w-full object-contain">
+                         <img src="https://tailwindui.com/img/logos/158x48/laravel-logo-gray-900.svg" alt="Laravel" class="col-span-1 max-h-12 w-full object-contain">
+                    </div>
+                 </div>
+            </section>
+
+        </main>
+        
+        <footer id="main-footer"></footer>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

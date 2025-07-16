@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-key="companies_title">Empresas em Destaque - TÁ NA HORA PRO</title>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+    <div id="app-container" class="min-h-screen flex flex-col">
+        <header id="main-header" class="sticky top-0 z-50"></header>
+        
+        <main id="page-content" class="flex-grow container mx-auto p-6">
+            <h1 class="text-3xl font-bold mb-2" data-i18n-key="companies_title">Empresas em Destaque</h1>
+            <p class="text-gray-600 mb-8" data-i18n-key="companies_subtitle">Conheça as empresas com o plano Ultra Pro que apoiam a nossa comunidade.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Company Card -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <img src="https://tailwindui.com/img/logos/158x48/transistor-logo-gray-900.svg" alt="Transistor Logo" class="h-10 mr-4">
+                            <div>
+                                <h2 class="text-xl font-bold">Transistor</h2>
+                                <p class="text-sm text-gray-500">Tecnologia</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">Empresa líder em soluções de streaming de áudio e podcasting.</p>
+                        <a href="#" class="font-semibold text-blue-600 hover:text-blue-800" data-i18n-key="learn_more">Saber mais <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </div>
+                 <!-- Company Card -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <img src="https://tailwindui.com/img/logos/158x48/reform-logo-gray-900.svg" alt="Reform Logo" class="h-10 mr-4">
+                            <div>
+                                <h2 class="text-xl font-bold">Reform</h2>
+                                <p class="text-sm text-gray-500">Design & UI</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">Especialistas em design de interfaces e experiência do utilizador.</p>
+                        <a href="#" class="font-semibold text-blue-600 hover:text-blue-800" data-i18n-key="learn_more">Saber mais <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </div>
+                 <!-- Company Card -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <img src="https://tailwindui.com/img/logos/158x48/tuple-logo-gray-900.svg" alt="Tuple Logo" class="h-10 mr-4">
+                            <div>
+                                <h2 class="text-xl font-bold">Tuple</h2>
+                                <p class="text-sm text-gray-500">Software</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4">Ferramentas de colaboração para equipas de desenvolvimento.</p>
+                        <a href="#" class="font-semibold text-blue-600 hover:text-blue-800" data-i18n-key="learn_more">Saber mais <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+        
+        <footer id="main-footer"></footer>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

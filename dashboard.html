@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-key="dashboard_title">Dashboard - TÁ NA HORA PRO</title>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+    <div id="app-container" class="min-h-screen flex flex-col">
+        <header id="main-header" class="sticky top-0 z-50"></header>
+        
+        <main id="page-content" class="flex-grow container mx-auto p-6">
+            <h1 class="text-3xl font-bold mb-6" data-i18n-key="dashboard_title">Dashboard</h1>
+            
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-sm font-medium text-gray-500" data-i18n-key="total_sales">Vendas Totais</h2>
+                    <p class="text-3xl font-bold">12.500 Kz</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-sm font-medium text-gray-500" data-i18n-key="net_profit">Lucro Líquido</h2>
+                    <p class="text-3xl font-bold text-green-600">4.800 Kz</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-sm font-medium text-gray-500" data-i18n-key="pending_tasks">Tarefas Pendentes</h2>
+                    <p class="text-3xl font-bold">5</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-sm font-medium text-gray-500" data-i18n-key="stock_items">Itens em Stock</h2>
+                    <p class="text-3xl font-bold">89</p>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-bold mb-4" data-i18n-key="sales_chart_title">Vendas nos Últimos 6 Meses</h3>
+                    <canvas id="salesChart" style="height: 300px;"></canvas>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-bold mb-4" data-i18n-key="profit_chart_title">Lucro por Categoria</h3>
+                    <canvas id="profitChart" style="height: 300px;"></canvas>
+                </div>
+            </div>
+
+        </main>
+        
+        <footer id="main-footer"></footer>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/charts.js"></script>
+</body>
+</html>

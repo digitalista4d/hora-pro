@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-key="freelancer_profile_title">Perfil do Freelancer - TÁ NA HORA PRO</title>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+    <div id="app-container" class="min-h-screen flex flex-col">
+        <header id="main-header" class="sticky top-0 z-50"></header>
+        
+        <main id="page-content" class="flex-grow container mx-auto p-6">
+            <div id="freelancer-profile-container" class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
+                <!-- Profile content will be loaded here by JavaScript -->
+                <div class="text-center p-8" data-i18n-key="loading">A carregar perfil...</div>
+            </div>
+        </main>
+        
+        <footer id="main-footer"></footer>
+    </div>
+
+    <script type="module">
+        import { getFreelancerById } from './js/api.js';
+        import { translateElement } from './js/i18n.js';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const freelancerId = params.get('id');
+            const container = document.getElementById('freelancer-profile-container');
+            
+            // In a real app, this would come from an auth state
+            const MOCK_LOGGED_IN_USER_ID = '1';
+            
+            if (!freelancerId) {
+                container.innerHTML = `<div class="text-center p-8 text-red-500" data-i18n-key="freelancer_not_found">Freelancer não encontrado.</div>`;
+                translateElement(container.firstElementChild);
+                return;
+            }
+
+            const freelancer = await getFreelancerById(freelancerId); 
+            
+            if (freelancer) {
+                const isOwner = freelancerId === MOCK_LOGGED_IN_USER_ID;
+                const statusClass = freelancer.status === 'ON' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800';
+                const statusDotClass = freelancer.status === 'ON' ? 'bg-green-500' : 'bg-gray-500';
+
+                const editButtonHtml = isOwner 
+                    ? `<a href="settings.html" class="mt-4 w-full text-center bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition duration-300 block" data-i18n-key="edit_profile">Editar Perfil</a>` 
+                    : '';
+
+                const contactInfoHtml = `
+                    <div class="mt-8">
+                        <div class="space-y-3">
+                            ${freelancer.website ? `
+                            <div class="flex items-center text-gray-600">
+                                <i data-lucide="globe" class="w-5 h-5 mr-3 text-blue-500 shrink-0"></i>
+                                <a href="${freelancer.website}" target="_blank" rel="noopener noreferrer" class="hover:underline break-all text-blue-600">${freelancer.website}</a>
+                            </div>` : ''}
+                            ${freelancer.linkedin_url ? `
+                            <div class="flex items-center text-gray-600">
+                                <i data-lucide="linkedin" class="w-5 h-5 mr-3 text-blue-500 shrink-0"></i>
+                                <a href="${freelancer.linkedin_url}" target="_blank" rel="noopener noreferrer" class="hover:underline break-all text-blue-600">${freelancer.linkedin_url.replace(new RegExp('https://www.linkedin.com/in/'),'')}</a>
+                            </div>` : ''}
+                            ${freelancer.github_url ? `
+                            <div class="flex items-center text-gray-600">
+                                <i data-lucide="github" class="w-5 h-5 mr-3 text-blue-500 shrink-0"></i>
+                                <a href="${freelancer.github_url}" target="_blank" rel="noopener noreferrer" class="hover:underline break-all text-blue-600">${freelancer.github_url.replace(new RegExp('https://github.com/'),'')}</a>
+                            </div>` : ''}
+                            ${freelancer.phone ? `
+                            <div class="flex items-center text-gray-600">
+                                <i data-lucide="phone" class="w-5 h-5 mr-3 text-blue-500 shrink-0"></i>
+                                <span>${freelancer.phone}</span>
+                            </div>` : ''}
+                        </div>
+                    </div>
+                `;
+
+                container.innerHTML = `
+                    <div class="flex flex-col md:flex-row items-center md:items-start">
+                        <div class="md:w-1/3 text-center">
+                            <img src="${freelancer.avatar}" alt="${freelancer.name}" class="w-40 h-40 rounded-full mx-auto mb-4 border-4 border-blue-200 object-cover">
+                            <h1 class="text-3xl font-bold">${freelancer.name}</h1>
+                            <p class="text-gray-500 text-lg">${freelancer.category}</p>
+                            <span class="inline-flex items-center ${statusClass} text-sm font-medium my-2 px-3 py-1 rounded-full">
+                                <span class="w-2.5 h-2.5 mr-2 ${statusDotClass} rounded-full"></span>
+                                <span data-i18n-key="status_${freelancer.status.toLowerCase()}">${freelancer.status}</span>
+                            </span>
+                             <div class="flex justify-center text-yellow-400 mt-2">
+                                <i data-lucide="star" class="w-5 h-5 fill-current"></i><i data-lucide="star" class="w-5 h-5 fill-current"></i><i data-lucide="star" class="w-5 h-5 fill-current"></i><i data-lucide="star" class="w-5 h-5 fill-current"></i><i data-lucide="star" class="w-5 h-5"></i>
+                            </div>
+                            ${contactInfoHtml}
+                        </div>
+                        <div class="md:w-2/3 md:pl-8 mt-6 md:mt-0">
+                            <h2 class="text-2xl font-bold border-b pb-2 mb-4" data-i18n-key="about_me">Sobre Mim</h2>
+                            <p class="text-gray-700 mb-6">${freelancer.description}</p>
+                            <div class="mb-6">
+                                <div class="flex items-center text-gray-600 mb-2">
+                                    <i data-lucide="map-pin" class="w-5 h-5 mr-3 text-blue-500"></i>
+                                    <span>${freelancer.location}</span>
+                                </div>
+                            </div>
+                            <button class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-300" data-i18n-key="make_request">Fazer Pedido</button>
+                            ${editButtonHtml}
+                        </div>
+                    </div>
+                    <div class="mt-10">
+                         <h2 class="text-2xl font-bold border-b pb-2 mb-4" data-i18n-key="portfolio">Portfólio</h2>
+                         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            ${freelancer.portfolio.map(item => `<img src="${item}" alt="Portfolio item" class="rounded-lg shadow-md w-full h-auto object-cover aspect-square">`).join('')}
+                         </div>
+                    </div>
+                `;
+                lucide.createIcons();
+                // Translate dynamic elements
+                container.querySelectorAll('[data-i18n-key]').forEach(translateElement);
+            } else {
+                 container.innerHTML = `<div class="text-center p-8 text-red-500" data-i18n-key="freelancer_not_found">Freelancer não encontrado.</div>`;
+                 translateElement(container.firstElementChild);
+            }
+        });
+    </script>
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

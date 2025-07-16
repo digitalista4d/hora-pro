@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-key="subscriptions_title">Planos e Subscrições - TÁ NA HORA PRO</title>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+    <div id="app-container" class="min-h-screen flex flex-col">
+        <header id="main-header" class="sticky top-0 z-50"></header>
+        
+        <main id="page-content" class="flex-grow container mx-auto p-6">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold mb-2" data-i18n-key="pricing_title">Planos para todos</h1>
+                <p class="text-lg text-gray-600" data-i18n-key="pricing_subtitle">Escolha o plano que melhor se adapta às suas necessidades.</p>
+            </div>
+
+            <div class="mt-16 grid max-w-lg grid-cols-1 mx-auto lg:max-w-none lg:grid-cols-4 gap-8">
+                
+                <!-- Free Plan -->
+                <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-md">
+                    <h3 class="text-lg font-semibold leading-8 text-gray-900" data-i18n-key="plan_free_title">Free</h3>
+                    <p class="mt-4 text-sm leading-6 text-gray-600" data-i18n-key="plan_free_desc">Acesso limitado para começar.</p>
+                    <p class="mt-6 flex items-baseline gap-x-1">
+                        <span class="text-4xl font-bold tracking-tight text-gray-900">0 Kz</span>
+                        <span class="text-sm font-semibold leading-6 text-gray-600" data-i18n-key="per_month">/mês</span>
+                    </p>
+                    <a href="#" class="mt-6 block rounded-md bg-gray-200 px-3 py-2 text-center text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-300" data-i18n-key="get_started">Começar</a>
+                </div>
+
+                <!-- Pro Local Plan -->
+                <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-md">
+                    <h3 class="text-lg font-semibold leading-8 text-gray-900" data-i18n-key="plan_pro_local_title">Pro Local</h3>
+                    <p class="mt-4 text-sm leading-6 text-gray-600" data-i18n-key="plan_pro_local_desc">Para freelancers focados no mercado local.</p>
+                    <p class="mt-6 flex items-baseline gap-x-1">
+                        <span class="text-4xl font-bold tracking-tight text-gray-900">2.000 Kz</span>
+                        <span class="text-sm font-semibold leading-6 text-gray-600" data-i18n-key="per_month">/mês</span>
+                    </p>
+                    <a href="#" class="mt-6 block rounded-md bg-blue-600 px-3 py-2 text-center text-sm font-semibold leading-6 text-white hover:bg-blue-700" data-i18n-key="subscribe">Subscrever</a>
+                </div>
+                
+                <!-- Pro Global Plan -->
+                <div class="rounded-2xl border-2 border-blue-600 bg-white p-8 shadow-xl">
+                    <h3 class="text-lg font-semibold leading-8 text-blue-600" data-i18n-key="plan_pro_global_title">Pro Global</h3>
+                    <p class="mt-4 text-sm leading-6 text-gray-600" data-i18n-key="plan_pro_global_desc">Alcance global e mais funcionalidades.</p>
+                    <p class="mt-6 flex items-baseline gap-x-1">
+                        <span class="text-4xl font-bold tracking-tight text-gray-900">4.000 Kz</span>
+                        <span class="text-sm font-semibold leading-6 text-gray-600" data-i18n-key="per_month">/mês</span>
+                    </p>
+                    <a href="#" class="mt-6 block rounded-md bg-blue-600 px-3 py-2 text-center text-sm font-semibold leading-6 text-white hover:bg-blue-700" data-i18n-key="subscribe">Subscrever</a>
+                </div>
+
+                <!-- Ultra Pro Plan -->
+                <div class="rounded-2xl border border-gray-200 bg-white p-8 shadow-md">
+                    <h3 class="text-lg font-semibold leading-8 text-gray-900" data-i18n-key="plan_ultra_pro_title">Ultra Pro</h3>
+                    <p class="mt-4 text-sm leading-6 text-gray-600" data-i18n-key="plan_ultra_pro_desc">Para empresas que querem destaque.</p>
+                    <p class="mt-6 flex items-baseline gap-x-1">
+                        <span class="text-4xl font-bold tracking-tight text-gray-900">10.000 Kz</span>
+                        <span class="text-sm font-semibold leading-6 text-gray-600" data-i18n-key="per_month">/mês</span>
+                    </p>
+                    <a href="#" class="mt-6 block rounded-md bg-blue-600 px-3 py-2 text-center text-sm font-semibold leading-6 text-white hover:bg-blue-700" data-i18n-key="subscribe">Subscrever</a>
+                </div>
+
+            </div>
+
+        </main>
+        
+        <footer id="main-footer"></footer>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
