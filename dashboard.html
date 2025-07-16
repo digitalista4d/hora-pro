@@ -46,14 +46,18 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
     .card h3 {
-      margin: 0;
+      margin: 0 0 0.5rem 0;
       font-size: 1.2rem;
       color: #6b7280;
     }
-    .card p {
-      font-size: 1.5rem;
+    .card input {
+      font-size: 1.4rem;
       font-weight: bold;
       color: #10b981;
+      border: 1px solid #e5e7eb;
+      padding: 0.5rem;
+      border-radius: 5px;
+      width: 100%;
     }
     .charts {
       display: flex;
@@ -66,14 +70,14 @@
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
-    .calculator {
+    .calculator, .notepad {
       background-color: #fff;
       padding: 1.5rem;
       border-radius: 10px;
       max-width: 300px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
-    .calculator input, .calculator select {
+    .calculator input, .calculator select, .notepad textarea {
       width: 100%;
       padding: 0.5rem;
       margin-bottom: 1rem;
@@ -97,7 +101,6 @@
   </style>
 </head>
 <body>
-
   <header>
     <div class="title"><a href="index.html">TÁ NA HORA PRO</a></div>
     <nav>
@@ -107,33 +110,31 @@
       <a href="subscriptions.html">Planos</a>
     </nav>
   </header>
-
   <div class="metrics">
     <div class="card">
-      <h3>💰 Vendas Totais</h3>
-      <p>12.500 Kz</p>
+      <h3>💰 Vendas Totais (Kz)</h3>
+      <input type="number" placeholder="Digite o valor...">
     </div>
     <div class="card">
-      <h3>📈 Lucro Líquido</h3>
-      <p>4.800 Kz</p>
+      <h3>📈 Lucro Líquido (Kz)</h3>
+      <input type="number" placeholder="Digite o lucro...">
     </div>
     <div class="card">
       <h3>📋 Tarefas Pendentes</h3>
-      <p>5</p>
+      <input type="number" placeholder="Número de tarefas...">
     </div>
     <div class="card">
-      <h3>📦 Itens em Stock</h3>
-      <p>89</p>
+      <h3>📦 Inventário Atual</h3>
+      <input type="number" placeholder="Qtd em stock...">
     </div>
   </div>
-
   <div class="charts">
     <canvas id="salesChart" width="400" height="200"></canvas>
     <canvas id="profitChart" width="400" height="200"></canvas>
     <div class="calculator">
-      <h3>🧮 Calculadora de Vendas do Dia</h3>
-      <input type="number" id="calc1" placeholder="Total de Vendas">
-      <input type="number" id="calc2" placeholder="Custos do Dia">
+      <h3>🧮 Calculadora Rápida</h3>
+      <input type="number" id="calc1" placeholder="Valor 1">
+      <input type="number" id="calc2" placeholder="Valor 2">
       <select id="operacao">
         <option value="soma">Somar</option>
         <option value="subtrair">Subtrair</option>
@@ -143,8 +144,11 @@
       <button onclick="calcular()">Calcular</button>
       <p id="calcResultado">Resultado aparecerá aqui</p>
     </div>
+    <div class="notepad">
+      <h3>📝 Bloco de Notas</h3>
+      <textarea rows="8" placeholder="Notas, ideias, lembretes..."></textarea>
+    </div>
   </div>
-
   <script>
     const salesCtx = document.getElementById('salesChart').getContext('2d');
     new Chart(salesCtx, {
@@ -162,7 +166,6 @@
         }]
       }
     });
-
     const profitCtx = document.getElementById('profitChart').getContext('2d');
     new Chart(profitCtx, {
       type: 'bar',
@@ -179,21 +182,17 @@
         }]
       }
     });
-
     function calcular() {
       const a = parseFloat(document.getElementById('calc1').value);
       const b = parseFloat(document.getElementById('calc2').value);
       const operacao = document.getElementById('operacao').value;
       let resultado = 0;
-
       if (operacao === 'soma') resultado = a + b;
       if (operacao === 'subtrair') resultado = a - b;
       if (operacao === 'multiplicar') resultado = a * b;
       if (operacao === 'dividir') resultado = b !== 0 ? a / b : 'Erro: Divisão por zero';
-
       document.getElementById('calcResultado').innerText = `Resultado: ${resultado} Kz`;
     }
   </script>
-
 </body>
 </html>
