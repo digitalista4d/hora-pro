@@ -1,161 +1,77 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard - Tá na Hora Pro</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f0f4f8;
-      padding-bottom: 4rem;
-    }
-    header {
-      background-color: #0f172a;
-      padding: 1rem 2rem;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .title a {
-      color: white;
-      font-weight: 700;
-      font-size: 1.75rem;
-      text-decoration: none;
-    }
-    nav a {
-      margin-left: 1.5rem;
-      color: #f0f9ff;
-      font-weight: 500;
-      text-decoration: none;
-    }
-    .card {
-      border-radius: 1rem;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-    }
-    .form-label {
-      font-weight: 600;
-    }
-    table {
-      width: 100%;
-    }
-    th, td {
-      text-align: center;
-      vertical-align: middle;
-    }
-    .highlight {
-      background-color: #dcfce7;
-      font-weight: bold;
-    }
-    .card-title {
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-    .btn-pro {
-      background-color: #9333ea;
-      color: white;
-      border: none;
-    }
-    .btn-pro:hover {
-      background-color: #7e22ce;
-    }
-  </style>
 </head>
 <body>
-  <header>
-    <div class="title"><a href="index.html">TÁ NA HORA PRO</a></div>
-    <nav>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="freelancers.html">Freelancers</a>
-      <a href="companies.html">Empresas</a>
-      <a href="subscriptions.html">Planos</a>
-    </nav>
-  </header>
-  <main class="container mt-4">
-    <div class="row g-4">
-      <div class="col-md-3">
-        <div class="card p-3">
-          <label class="form-label">💰 Vendas do Dia</label>
-          <input type="number" class="form-control" id="vendas" oninput="atualizarLucro()">
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card p-3">
-          <label class="form-label">📈 Lucro Líquido (40%)</label>
-          <input type="number" class="form-control" id="lucro" readonly>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card p-3">
-          <label class="form-label">📝 Tarefas Pendentes</label>
-          <input type="text" class="form-control" placeholder="Descreva a tarefa">
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card p-3">
-          <label class="form-label">📓 Bloco de Notas</label>
-          <textarea class="form-control" rows="2" placeholder="Anotações rápidas..."></textarea>
-        </div>
-      </div>
-    </div>
+  <header id="main-header"></header>
 
-    <div class="row g-4 mt-4">
-      <div class="col-md-12">
-        <div class="card p-3">
-          <h5 class="card-title">📦 Inventário</h5>
-          <p class="text-danger" id="limiteAviso"></p>
-          <table class="table table-bordered table-striped">
-            <thead class="table-light">
-              <tr>
-                <th>Produto</th>
-                <th>Custo</th>
-                <th>Venda</th>
-                <th>Qtd</th>
-                <th>Lucro</th>
-              </tr>
-            </thead>
-            <tbody id="tabelaInventario"></tbody>
-          </table>
-          <div class="row g-2 mt-2">
-            <div class="col-md-3"><input id="produto" class="form-control" placeholder="Produto"></div>
-            <div class="col-md-2"><input type="number" id="custo" class="form-control" placeholder="Custo"></div>
-            <div class="col-md-2"><input type="number" id="venda" class="form-control" placeholder="Venda"></div>
-            <div class="col-md-2"><input type="number" id="quantidade" class="form-control" placeholder="Qtd"></div>
-            <div class="col-md-3"><button class="btn btn-success w-100" onclick="adicionarProduto()">Adicionar Produto</button></div>
-          </div>
-        </div>
+  <main class="dashboard">
+    <section class="info-cards">
+      <div class="card">
+        <h3>💰 Vendas do Dia</h3>
+        <input id="vendas" type="number" placeholder="0" onchange="atualizarLucro()" />
       </div>
-    </div>
+      <div class="card">
+        <h3>📈 Lucro Líquido (40%)</h3>
+        <input id="lucro" type="text" readonly />
+      </div>
+      <div class="card">
+        <h3>📝 Tarefas Pendentes</h3>
+        <input placeholder="Descreva a tarefa" />
+      </div>
+      <div class="card">
+        <h3>🗒️ Bloco de Notas</h3>
+        <textarea placeholder="Anotações rápidas..."></textarea>
+      </div>
+    </section>
 
-    <div class="row g-4 mt-4">
-      <div class="col-md-6">
-        <canvas id="salesChart" height="200"></canvas>
-      </div>
-      <div class="col-md-6">
-        <div class="card p-3">
-          <h6>📄 Fatura Rápida</h6>
-          <input type="text" id="nomeEmpresa" class="form-control mb-1" placeholder="Nome da Empresa">
-          <input type="text" id="nomeCliente" class="form-control mb-1" placeholder="Nome do Cliente">
-          <input type="date" id="dataFatura" class="form-control mb-2">
-          <select id="produtoSelecionado" class="form-select mb-2"></select>
-          <input type="number" id="quantidadeFatura" class="form-control mb-2" placeholder="Quantidade">
-          <button class="btn btn-primary w-100" onclick="gerarFatura()">Imprimir Fatura</button>
-        </div>
-        <div class="card p-3 mt-3">
-          <h6>📥 Extratos & Relatórios</h6>
-          <button class="btn btn-dark mb-2 w-100" onclick="baixarExtrato()">Download Extrato</button>
-          <a href="subscriptions.html" class="btn btn-pro w-100">🔒 Desbloquear Ilimitado com Plano Pro</a>
-        </div>
-      </div>
-    </div>
+    <section class="inventario">
+      <h2>📦 Inventário</h2>
+      <p id="limiteAviso" class="alert"></p>
+      <table>
+        <thead>
+          <tr><th>Produto</th><th>Custo</th><th>Venda</th><th>Qtd</th><th>Lucro</th></tr>
+        </thead>
+        <tbody id="tabelaInventario"></tbody>
+        <tfoot>
+          <tr>
+            <td><input id="produto" placeholder="Produto" /></td>
+            <td><input id="custo" type="number" placeholder="Custo" /></td>
+            <td><input id="venda" type="number" placeholder="Venda" /></td>
+            <td><input id="quantidade" type="number" placeholder="Qtd" /></td>
+            <td><button onclick="adicionarProduto()">Adicionar Produto</button></td>
+          </tr>
+        </tfoot>
+      </table>
+    </section>
+
+    <section class="fatura">
+      <h2>🧾 Fatura Rápida</h2>
+      <input id="nomeEmpresa" placeholder="Nome da Empresa" />
+      <input id="nomeCliente" placeholder="Nome do Cliente" />
+      <input id="dataFatura" type="date" />
+      <select id="produtoSelecionado"></select>
+      <input id="quantidadeFatura" type="number" placeholder="Quantidade" />
+      <button onclick="gerarFatura()">Imprimir Fatura</button>
+    </section>
+
+    <section class="relatorios">
+      <h2>📊 Extratos & Relatórios</h2>
+      <button onclick="baixarExtrato()">Download Extrato</button>
+      <button class="pro">🔒 Desbloquear ilimitado com Plano Pro</button>
+    </section>
+
+    <section class="grafico">
+      <canvas id="salesChart"></canvas>
+    </section>
   </main>
 
-  <script>
-    // Código JS igual ao anterior (sem alterações neste bloco)
-  </script>
+  <footer id="main-footer"></footer>
+  <script src="main.js"></script>
 </body>
 </html>
