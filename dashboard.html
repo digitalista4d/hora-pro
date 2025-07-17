@@ -47,6 +47,10 @@
       text-align: center;
       vertical-align: middle;
     }
+    .highlight {
+      background-color: #dcfce7;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -91,6 +95,7 @@
       <div class="col-md-12">
         <div class="card p-3">
           <h5>📦 Inventário Interativo</h5>
+          <p class="text-danger" id="limiteAviso"></p>
           <table class="table table-bordered table-striped">
             <thead class="table-light">
               <tr>
@@ -132,10 +137,25 @@
           <button class="btn btn-primary mt-2" onclick="calcular()">Calcular</button>
           <p id="calcResultado">Resultado aparecerá aqui</p>
         </div>
+        <div class="card p-3 mt-3">
+          <h6>📄 Imprimir Fatura</h6>
+          <input type="text" id="nomeEmpresa" class="form-control mb-1" placeholder="Nome da Empresa">
+          <input type="text" id="nomeCliente" class="form-control mb-1" placeholder="Nome do Cliente">
+          <input type="date" id="dataFatura" class="form-control mb-2">
+          <button class="btn btn-secondary w-100" onclick="window.print()">Imprimir Fatura</button>
+        </div>
+        <div class="card p-3 mt-3">
+          <h6>📥 Baixar Extrato</h6>
+          <button class="btn btn-dark w-100" onclick="baixarExtrato()">Download de Extrato (.txt)</button>
+        </div>
       </div>
     </div>
   </main>
   <script>
+    let totalProdutos = 0;
+    const limiteGratis = 5;
+    const historicoExtrato = [];
+
     function atualizarLucro() {
       const vendas = parseFloat(document.getElementById('vendas').value);
       const lucro = vendas * 0.4;
@@ -155,18 +175,34 @@
     }
 
     function adicionarProduto() {
+      if (totalProdutos >= limiteGratis) {
+        document.getElementById('limiteAviso').innerText = 'Limite de 5 produtos atingido no plano gratuito. Atualize para o Plano Pro ou Ultra para continuar adicionando.';
+        return;
+      }
       const produto = document.getElementById('produto').value;
       const custo = parseFloat(document.getElementById('custo').value);
       const venda = parseFloat(document.getElementById('venda').value);
       const qtd = parseInt(document.getElementById('quantidade').value);
       if (!produto || isNaN(custo) || isNaN(venda) || isNaN(qtd)) return;
       const lucro = (venda - custo) * qtd;
-      const novaLinha = `<tr><td>${produto}</td><td>${custo}</td><td>${venda}</td><td>${qtd}</td><td><strong>${lucro} Kz</strong></td></tr>`;
+      const novaLinha = `<tr class="highlight"><td>${produto}</td><td>${custo}</td><td>${venda}</td><td>${qtd}</td><td><strong>${lucro} Kz</strong></td></tr>`;
       document.getElementById('tabelaInventario').insertAdjacentHTML('beforeend', novaLinha);
+      historicoExtrato.push(`Produto: ${produto}, Custo: ${custo}, Venda: ${venda}, Qtd: ${qtd}, Lucro: ${lucro} Kz`);
+      totalProdutos++;
       document.getElementById('produto').value = '';
       document.getElementById('custo').value = '';
       document.getElementById('venda').value = '';
       document.getElementById('quantidade').value = '';
+    }
+
+    function baixarExtrato() {
+      const blob = new Blob([historicoExtrato.join("\n")], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'extrato_hora_pro.txt';
+      a.click();
+      URL.revokeObjectURL(url);
     }
 
     new Chart(document.getElementById('salesChart').getContext('2d'), {
