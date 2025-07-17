@@ -10,11 +10,11 @@
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background: #eef2f7;
+      background: #f0f4f8;
       padding-bottom: 4rem;
     }
     header {
-      background-color: #1e293b;
+      background-color: #0f172a;
       padding: 1rem 2rem;
       color: white;
       display: flex;
@@ -24,31 +24,28 @@
     .title a {
       color: white;
       font-weight: 700;
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       text-decoration: none;
     }
     nav a {
-      margin-left: 1rem;
-      color: #bae6fd;
+      margin-left: 1.5rem;
+      color: #f0f9ff;
       font-weight: 500;
       text-decoration: none;
     }
     .card {
       border-radius: 1rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-    }
-    .card input, .card textarea {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #0f172a;
-    }
-    #calcResultado {
-      font-weight: 600;
-      color: #0f172a;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
     }
     .form-label {
-      margin-bottom: 0.3rem;
-      font-weight: 500;
+      font-weight: 600;
+    }
+    table {
+      width: 100%;
+    }
+    th, td {
+      text-align: center;
+      vertical-align: middle;
     }
   </style>
 </head>
@@ -66,37 +63,64 @@
     <div class="row g-4">
       <div class="col-md-3">
         <div class="card p-3">
-          <label for="vendas" class="form-label">💰 Vendas do Dia</label>
+          <label class="form-label">💰 Vendas do Dia</label>
           <input type="number" class="form-control" id="vendas" oninput="atualizarLucro()">
         </div>
       </div>
       <div class="col-md-3">
         <div class="card p-3">
-          <label for="lucro" class="form-label">📈 Lucro Líquido (40%)</label>
+          <label class="form-label">📈 Lucro Líquido (40%)</label>
           <input type="number" class="form-control" id="lucro" readonly>
         </div>
       </div>
       <div class="col-md-3">
         <div class="card p-3">
-          <label for="tarefas" class="form-label">📋 Tarefas Pendentes</label>
-          <input type="text" class="form-control" id="tarefas" placeholder="Descreva a tarefa">
+          <label class="form-label">📝 Tarefas Pendentes</label>
+          <input type="text" class="form-control" placeholder="Descreva a tarefa">
         </div>
       </div>
       <div class="col-md-3">
         <div class="card p-3">
-          <label for="estoque" class="form-label">📦 Inventário Atual</label>
-          <input type="text" class="form-control" id="estoque" placeholder="Item ou quantidade">
+          <label class="form-label">🧾 Bloco de Notas</label>
+          <textarea class="form-control" rows="2" placeholder="Anotações rápidas..."></textarea>
         </div>
       </div>
     </div>
 
     <div class="row g-4 mt-4">
-      <div class="col-md-8">
+      <div class="col-md-12">
+        <div class="card p-3">
+          <h5>📦 Inventário Interativo</h5>
+          <table class="table table-bordered table-striped">
+            <thead class="table-light">
+              <tr>
+                <th>Produto</th>
+                <th>Custo (Kz)</th>
+                <th>Venda (Kz)</th>
+                <th>Quantidade</th>
+                <th>Lucro Total</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaInventario"></tbody>
+          </table>
+          <div class="row g-2 mt-2">
+            <div class="col-md-3"><input id="produto" class="form-control" placeholder="Produto"></div>
+            <div class="col-md-2"><input type="number" id="custo" class="form-control" placeholder="Custo"></div>
+            <div class="col-md-2"><input type="number" id="venda" class="form-control" placeholder="Venda"></div>
+            <div class="col-md-2"><input type="number" id="quantidade" class="form-control" placeholder="Qtd"></div>
+            <div class="col-md-3"><button class="btn btn-success w-100" onclick="adicionarProduto()">Adicionar Produto</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mt-4">
+      <div class="col-md-6">
         <canvas id="salesChart" height="200"></canvas>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
         <div class="card p-3">
-          <h6>🧮 Calculadora</h6>
+          <h6>🧮 Calculadora Rápida</h6>
           <input type="number" id="calc1" placeholder="Número 1" class="form-control">
           <input type="number" id="calc2" placeholder="Número 2" class="form-control mt-1">
           <select id="operacao" class="form-select mt-1">
@@ -110,48 +134,13 @@
         </div>
       </div>
     </div>
-
-    <div class="row g-4 mt-4">
-      <div class="col-md-6">
-        <canvas id="profitChart" height="200"></canvas>
-      </div>
-      <div class="col-md-6">
-        <div class="card p-3">
-          <label class="form-label">📝 Bloco de Notas</label>
-          <textarea rows="6" class="form-control" placeholder="Notas, tarefas ou ideias..."></textarea>
-        </div>
-      </div>
-    </div>
   </main>
   <script>
-    const salesCtx = document.getElementById('salesChart').getContext('2d');
-    new Chart(salesCtx, {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
-        datasets: [{
-          label: 'Vendas (Kz)',
-          data: [1200, 1500, 1800, 2200, 3000, 3500],
-          borderColor: '#3b82f6',
-          backgroundColor: 'rgba(59, 130, 246, 0.2)',
-          tension: 0.4,
-          fill: true
-        }]
-      }
-    });
-
-    const profitCtx = document.getElementById('profitChart').getContext('2d');
-    new Chart(profitCtx, {
-      type: 'bar',
-      data: {
-        labels: ['Design', 'Marketing', 'Tech'],
-        datasets: [{
-          label: 'Lucro (Kz)',
-          data: [800, 1600, 2200],
-          backgroundColor: ['#10b981', '#f59e0b', '#ef4444']
-        }]
-      }
-    });
+    function atualizarLucro() {
+      const vendas = parseFloat(document.getElementById('vendas').value);
+      const lucro = vendas * 0.4;
+      document.getElementById('lucro').value = isNaN(lucro) ? '' : lucro.toFixed(2);
+    }
 
     function calcular() {
       const a = parseFloat(document.getElementById('calc1').value);
@@ -165,11 +154,35 @@
       document.getElementById('calcResultado').innerText = `Resultado: ${resultado} Kz`;
     }
 
-    function atualizarLucro() {
-      const vendas = parseFloat(document.getElementById('vendas').value);
-      const lucro = vendas * 0.4;
-      document.getElementById('lucro').value = isNaN(lucro) ? '' : lucro.toFixed(2);
+    function adicionarProduto() {
+      const produto = document.getElementById('produto').value;
+      const custo = parseFloat(document.getElementById('custo').value);
+      const venda = parseFloat(document.getElementById('venda').value);
+      const qtd = parseInt(document.getElementById('quantidade').value);
+      if (!produto || isNaN(custo) || isNaN(venda) || isNaN(qtd)) return;
+      const lucro = (venda - custo) * qtd;
+      const novaLinha = `<tr><td>${produto}</td><td>${custo}</td><td>${venda}</td><td>${qtd}</td><td><strong>${lucro} Kz</strong></td></tr>`;
+      document.getElementById('tabelaInventario').insertAdjacentHTML('beforeend', novaLinha);
+      document.getElementById('produto').value = '';
+      document.getElementById('custo').value = '';
+      document.getElementById('venda').value = '';
+      document.getElementById('quantidade').value = '';
     }
+
+    new Chart(document.getElementById('salesChart').getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+        datasets: [{
+          label: 'Vendas (Kz)',
+          data: [1200, 1500, 1800, 2200, 3000, 3500],
+          borderColor: '#3b82f6',
+          backgroundColor: 'rgba(59, 130, 246, 0.2)',
+          tension: 0.4,
+          fill: true
+        }]
+      }
+    });
   </script>
 </body>
 </html>
